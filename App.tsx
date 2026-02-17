@@ -2,13 +2,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Book, Calculator, Palette, Mic, Search, Home, ChevronRight, Send, Camera, Sparkles, Video, Play, RefreshCw, Layers, Star, PenTool, BookOpen, LayoutGrid, CheckCircle, AlertCircle, Menu, X } from 'lucide-react';
 import { AppView, ChatMessage, GroundingChunk, LessonContent } from './types';
-import { chatWithGemini, generateSpeech, analyzeMathImage, generateLearningImage, searchGrounding, generateLearningVideo, editImage } from './services/geminiService';
-import { playSpeech } from './components/AudioPlayer';
-import { LiveTutor } from './components/LiveTutor';
-import { ExerciseModule } from './components/ExerciseModule';
-import { StoryModule } from './components/StoryModule';
-import { LessonDetail } from './components/LessonDetail';
-import { VIETNAMESE_LESSONS } from './services/lessonData';
+import { chatWithGemini, generateSpeech, analyzeMathImage, generateLearningImage, searchGrounding, generateLearningVideo, editImage } from './geminiService';
+import { playSpeech } from './AudioPlayer';
+import { LiveTutor } from './LiveTutor';
+import { ExerciseModule } from './ExerciseModule';
+import { StoryModule } from './StoryModule';
+import { LessonDetail } from './LessonDetail';
+import { VIETNAMESE_LESSONS } from './lessonData';
 
 const App: React.FC = () => {
   const [view, setView] = useState<AppView>(AppView.DASHBOARD);
