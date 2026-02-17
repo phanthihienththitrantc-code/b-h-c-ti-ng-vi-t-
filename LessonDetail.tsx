@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
-import { LessonContent } from '../types';
-import { generateLearningImage, generateSpeech } from '../services/geminiService';
+import { LessonContent } from './types';
+import { generateLearningImage, generateSpeech } from './geminiService';
 import { playSpeech } from './AudioPlayer';
 import { Volume2, BookOpen, PenTool, Lightbulb, RefreshCw, Mic, MessageCircle, Play, ChevronRight, Sparkles, Star, Square, Trash2, MicOff, Image as ImageIcon } from 'lucide-react';
 

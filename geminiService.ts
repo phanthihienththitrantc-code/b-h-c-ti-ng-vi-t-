@@ -1,6 +1,6 @@
 
 import { GoogleGenAI, Type, Modality } from "@google/genai";
-import { ExerciseItem, StoryResponse } from "../types";
+import { ExerciseItem, StoryResponse } from "./types";
 
 const getAI = () => {
   if (!process.env.API_KEY) {
