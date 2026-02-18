@@ -1,0 +1,17 @@
+:root {
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #f0f9ff;
+}
+
+.child-card {
+  transition: transform 0.2s;
+}
+
+.child-card:hover {
+  transform: translateY(-5px);
+}
