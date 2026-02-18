@@ -1,5 +1,5 @@
 
-import { LessonContent } from '../types';
+import { LessonContent } from './types';
 
 export const VIETNAMESE_LESSONS: LessonContent[] = [
   // ================= TẬP 1: ÂM, CHỮ VÀ VẦN (83 BÀI) =================

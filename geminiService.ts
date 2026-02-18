@@ -1,6 +1,11 @@
 
 import { GoogleGenAI, Type, Modality } from "@google/genai";
-import { ExerciseItem, StoryResponse } from "../types";
+import { ExerciseItem, StoryResponse } from "./types";
+
+export interface GeneratedSpeech {
+  data: string;
+  mimeType: string;
+}
 
 const getAI = () => {
   if (!process.env.API_KEY) {
@@ -9,7 +14,7 @@ const getAI = () => {
   return new GoogleGenAI({ apiKey: process.env.API_KEY });
 };
 
-export const generateSpeech = async (text: string) => {
+export const generateSpeech = async (text: string): Promise<GeneratedSpeech | null> => {
   const ai = getAI();
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash-preview-tts",
@@ -23,7 +28,13 @@ export const generateSpeech = async (text: string) => {
       },
     },
   });
-  return response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+  const inlineData = response.candidates?.[0]?.content?.parts?.[0]?.inlineData;
+  if (!inlineData?.data) return null;
+
+  return {
+    data: inlineData.data,
+    mimeType: inlineData.mimeType || 'audio/pcm;rate=24000',
+  };
 };
 
 export const generateExercises = async (category: string): Promise<ExerciseItem[]> => {

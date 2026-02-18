@@ -1,5 +1,5 @@
-
 import React from 'react';
+import type { GeneratedSpeech } from './geminiService';
 
 function decode(base64: string) {
   const binaryString = atob(base64);
@@ -11,7 +11,7 @@ function decode(base64: string) {
   return bytes;
 }
 
-async function decodeAudioData(
+async function decodePcmAudioData(
   data: Uint8Array,
   ctx: AudioContext,
   sampleRate: number,
@@ -30,11 +30,32 @@ async function decodeAudioData(
   return buffer;
 }
 
-export const playSpeech = async (base64Audio: string) => {
-  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
-  const audioBuffer = await decodeAudioData(decode(base64Audio), audioContext, 24000, 1);
-  const source = audioContext.createBufferSource();
-  source.buffer = audioBuffer;
-  source.connect(audioContext.destination);
-  source.start();
+const parseRateFromMimeType = (mimeType: string) => {
+  const match = mimeType.match(/rate=(\d+)/i);
+  return match ? Number(match[1]) : 24000;
+};
+
+export const playSpeech = async (audio: GeneratedSpeech) => {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  if (audioContext.state === 'suspended') {
+    await audioContext.resume();
+  }
+
+  const bytes = decode(audio.data);
+
+  if (audio.mimeType.includes('audio/pcm')) {
+    const rate = parseRateFromMimeType(audio.mimeType);
+    const audioBuffer = await decodePcmAudioData(bytes, audioContext, rate, 1);
+    const source = audioContext.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(audioContext.destination);
+    source.start();
+    return;
+  }
+
+  const blob = new Blob([bytes], { type: audio.mimeType || 'audio/wav' });
+  const url = URL.createObjectURL(blob);
+  const element = new Audio(url);
+  element.onended = () => URL.revokeObjectURL(url);
+  await element.play();
 };

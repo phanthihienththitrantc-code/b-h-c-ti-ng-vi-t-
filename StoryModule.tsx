@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { generateStory, generateLearningImage, generateSpeech } from '../services/geminiService';
-import { StoryResponse } from '../types';
+import { generateStory, generateLearningImage, generateSpeech } from './geminiService';
+import { StoryResponse } from './types';
 import { playSpeech } from './AudioPlayer';
 import { BookOpen, Volume2, ChevronRight, ChevronLeft, RefreshCw, Sparkles } from 'lucide-react';
 
