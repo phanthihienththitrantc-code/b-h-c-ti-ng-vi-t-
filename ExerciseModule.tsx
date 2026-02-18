@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { generateExercises, generateLearningImage } from '../services/geminiService';
-import { ExerciseItem } from '../types';
+import { generateExercises, generateLearningImage } from './geminiService';
+import { ExerciseItem } from './types';
 import { CheckCircle2, XCircle, RefreshCw, Trophy, Star } from 'lucide-react';
 
 export const ExerciseModule: React.FC<{ category: string, onError?: (err: any) => void }> = ({ category, onError }) => {
