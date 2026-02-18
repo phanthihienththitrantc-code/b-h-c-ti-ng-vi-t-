@@ -1,11 +1,14 @@
 
 import { GoogleGenAI, Type, Modality } from "@google/genai";
 import { ExerciseItem, StoryResponse } from "./types";
+codex/access-and-review-code-egv9yu
 
 export interface GeneratedSpeech {
   data: string;
   mimeType: string;
 }
+
+main
 
 const getAI = () => {
   if (!process.env.API_KEY) {
